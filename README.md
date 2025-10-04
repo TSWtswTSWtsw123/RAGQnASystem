@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 基于RAG与大模型技术的医疗问答系统
 
 本项目使用的数据集来源于[Open-KG](http://data.openkg.cn/dataset/disease-information)，参考了[RAGOnMedicalKG](https://github.com/liuhuanyong/RAGOnMedicalKG)、[QASystemOnMedicalKG](https://github.com/liuhuanyong/QASystemOnMedicalKG)
@@ -282,3 +283,7 @@ streamlit run login.py
 
 邮箱：zeromakers@outlook.com
 
+=======
+# RAGQnASystem
+Medical Q&amp;A System Based on RAG and Large Language Models
+>>>>>>> 611e947faf680bab7d0465416916863d17b1e823
