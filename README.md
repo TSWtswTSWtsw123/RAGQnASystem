@@ -265,8 +265,4 @@ We categorized intents into 16 types, which covers most intents but cannot exhau
 
 **Issue**: Requires manual data annotation.
 
-## Contact
 
-If you encounter difficulties during reproduction, please feel free to contact us!
-
-Email: zeromakers@outlook.com
