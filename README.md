@@ -1,52 +1,48 @@
-<<<<<<< HEAD
-# 基于RAG与大模型技术的医疗问答系统
+# Medical Q&A System Based on RAG and Large Language Models
 
-本项目使用的数据集来源于[Open-KG](http://data.openkg.cn/dataset/disease-information)，参考了[RAGOnMedicalKG](https://github.com/liuhuanyong/RAGOnMedicalKG)、[QASystemOnMedicalKG](https://github.com/liuhuanyong/QASystemOnMedicalKG)
+This project uses datasets from [Open-KG](http://data.openkg.cn/dataset/disease-information) and references [RAGOnMedicalKG](https://github.com/liuhuanyong/RAGOnMedicalKG) and [QASystemOnMedicalKG](https://github.com/liuhuanyong/QASystemOnMedicalKG).
 
-## 介绍
+## Introduction
 
-本项目整体流程：
+This project's overall workflow:
 
 <img src="img/all.png" style="zoom:100%;" />
 
+This project designs a medical Q&A system based on RAG (Retrieval-Augmented Generation) and large language model technology. It utilizes the DiseaseKG dataset with Neo4j to build a knowledge graph, combines BERT-based named entity recognition and 34B large model intent recognition, and improves system performance in medical consultation through precise knowledge retrieval and Q&A generation, addressing reliability issues in large model applications in the medical field.
 
-本项目设计了一个基于 RAG 与大模型技术的医疗问答系统，利用 DiseaseKG 数据集与 Neo4j 构建知识图谱，结合 BERT 的命名实体识别和 34b 大模型的意图识别，通过精确的知识检索和问答生成，提升系统在医疗咨询中的性能，解决大模型在医疗领域应用的可靠性问题。
-
-RAG技术：
+RAG Technology:
 
 <img src="img/RAG.png" style="zoom:100%;" />
 
-
-
-本项目采用知识图谱实现RAG，如果您想用向量数据库实现RAG技术，请移步[Langchain-Chatchat](https://github.com/chatchat-space/Langchain-Chatchat)：
+This project implements RAG using knowledge graphs. If you want to implement RAG technology using vector databases, please refer to [Langchain-Chatchat](https://github.com/chatchat-space/Langchain-Chatchat):
 
 <img src="img/langchain+chatglm.png" style="zoom:50%;" />
 
-本项目主要贡献：
+## Key Contributions
 
-(1) 传统的 RAG 技术通常是利用向量数据库实现的。区别于传统的 RAG 实现方 式，本项目采用了知识图谱，为大模型提供了更加精确的外部信息。
+(1) Traditional RAG technology typically uses vector databases. Unlike traditional RAG implementations, this project adopts knowledge graphs, providing more precise external information for large models.
 
-(2) 本项目构建了一个医疗领域的知识图谱，并采用大语言模型优化了知识图谱数 据集文件的实体信息，使得构建出的知识图谱更加准确与科学。
+(2) This project constructs a medical domain knowledge graph and uses large language models to optimize entity information in the knowledge graph dataset files, making the constructed knowledge graph more accurate and scientific.
 
-(3) 本项目通过规则匹配的方式构建了一个实体识别数据集（NER），得益于（2） 在实体名字上的优化，我们的模型可以轻松的在构建的数据集上表现出极高的性能。
+(3) This project builds a named entity recognition (NER) dataset through rule matching. Benefiting from the entity name optimization in (2), our model can easily achieve extremely high performance on the constructed dataset.
 
-(4) 本项目针对实体识别任务提出并实施了三种数据增强策略：实体替换、实体掩 码和实体拼接， 提升了 RoBERTa 模型的性能。 在测试集上，这些数据增强措施使得 RoBERTa 模型的 F1 分数从原来的 96.77%提升至 97.40%。
+(4) This project proposes and implements three data augmentation strategies for entity recognition tasks: entity replacement, entity masking, and entity concatenation, improving RoBERTa model performance. On the test set, these data augmentation measures increased the RoBERTa model's F1 score from 96.77% to 97.40%.
 
-(5) 为了避免数据标注所造成的人工成本，本项目直接设计 Prompt，结合上下文学习与思维链技术，采用大语言模型对用户的提问进行意图识别。这种方法在减少人工成本的基础上保证了意图识别过程的准确度。
+(5) To avoid the manual cost of data annotation, this project directly designs prompts, combines context learning with chain-of-thought techniques, and uses large language models for intent recognition of user queries. This method ensures accuracy in the intent recognition process while reducing manual costs.
 
-(6) 本项目使用 Streamlit 框架对上述模型进行部署，实现了高度封装。我们的界面 涵盖了注册与登录、大语言模型的选择、创建多个聊天窗口等多项功能。
+(6) This project uses the Streamlit framework to deploy the above models, achieving high encapsulation. Our interface covers registration and login, large language model selection, creating multiple chat windows, and other features.
 
-## :fire:To do
+## 🔥 To Do
 
-- [x] 增加界面的功能(2024.5.21)：增加了登陆、注册界面(含用户、管理员2个身份)，大模型选择按钮(可选千问和llama)、多窗口对话功能等。
-- [ ] NL2Cyhper
-- [ ] 更多优化...
+- [x] Enhanced interface functionality (2024.5.21): Added login and registration interfaces (including user and admin identities), large model selection buttons (supporting Qwen and LLaMA), multi-window chat functionality, etc.
+- [ ] NL2Cypher
+- [ ] More optimizations...
 
-## Python环境配置
+## Python Environment Setup
 
-一个例子:
+Example setup:
 
-```
+```bash
 git clone https://github.com/honeyandme/RAGQnASystem.git
 cd RAGQnASystem
 conda create -n RAGQnASystem python=3.10
@@ -54,114 +50,110 @@ conda activate RAGQnASystem
 pip install -r requirements.txt
 ```
 
-## 构建知识图谱
+## Knowledge Graph Construction
 
-首先需要安装Neo4j，[官方网站](https://neo4j.com/deployment-center/#community)。本项目使用的版本是neo4j-community-5.18.1，需要依赖jdk17。
+First, you need to install Neo4j from the [official website](https://neo4j.com/deployment-center/#community). This project uses neo4j-community-5.18.1, which requires JDK 17.
 
-安装并运行Neo4j后，我们需要根据```data/medical_new_2.json```数据集创建一个知识图谱。
+After installing and running Neo4j, we need to create a knowledge graph based on the `data/medical_new_2.json` dataset.
 
-```
+```bash
 python build_up_graph.py --website YourWebSite --user YourUserName --password YourPassWord --dbname YourDBName
 ```
 
-其中，```--website```代表你的Neo4j网址，```--user```代表你的数据库用户名，```--password```代表你的数据库密码，```--dbname```代表你的数据库名字。
+Where:
+- `--website`: Your Neo4j URL
+- `--user`: Your database username
+- `--password`: Your database password
+- `--dbname`: Your database name
 
-示例:
+Example:
 
-```
+```bash
 python build_up_graph.py --website http://localhost:7474 --user neo4j --password YourPassWord --dbname neo4j
 ```
 
-运行```build_up_graph.py```后，会自动在```data```文件夹下创建```ent_aug```文件夹和```rel_aug.txt```文件，分别存放所有实体和关系。
+After running `build_up_graph.py`, it will automatically create the `ent_aug` folder and `rel_aug.txt` file in the `data` folder, storing all entities and relationships respectively.
 
+The following table shows key information from `medical_new_2.json`. For more detailed information, please click [here](https://github.com/nuolade/disease-kb):
 
+### Knowledge Graph Entity Types (8 entity types):
 
-下表展示了```medical_new_2.json```中的关键信息，更多详细信息请点击[这里](https://github.com/nuolade/disease-kb)查看：
+| Entity Type | Chinese Meaning | Entity Count | Example |
+|-------------|-----------------|--------------|---------|
+| Disease     | Disease         | 8,808        | Acute pulmonary abscess |
+| Drug        | Medicine        | 3,828        | Brinzolamide eye drops |
+| Food        | Food            | 4,870        | Sesame |
+| Check       | Examination     | 3,353        | Chest CT scan |
+| Department  | Department      | 54           | Internal Medicine |
+| Producer    | Available drugs | 17,201       | Qingyang dexamethasone acetate tablets |
+| Symptom     | Disease symptoms| 5,998        | Fatigue |
+| Cure        | Treatment methods| 544         | Antibiotic treatment |
+| **Total**   | **Total**       | **44,656**   | **~44K entity scale** |
 
-知识图谱实体类型（8类实体）：
+### Disease Entity Attribute Types (7 attribute types):
 
-| 实体类型   | 中文含义 | 实体数量 | 举例               |
-| ---------- | -------- | -------- | ------------------ |
-| Disease    | 疾病     | 8808     | 急性肺脓肿         |
-| Drug       | 药品     | 3828     | 布林佐胺滴眼液     |
-| Food       | 食物     | 4870     | 芝麻               |
-| Check      | 检查项目 | 3353     | 胸部CT检查         |
-| Department | 科目     | 54       | 内科               |
-| Producer   | 在售药品 | 17,201   | 青阳醋酸地塞米松片 |
-| Symptom    | 疾病症状 | 5,998    | 乏力               |
-| Cure       | 治疗方法 | 544      | 抗生素药物治疗     |
-| Total      | 总计     | 44,656   | 约4.4万实体量级    |
+| Attribute Type | Chinese Meaning | Example |
+|----------------|-----------------|---------|
+| name          | Disease name    | Adult respiratory distress syndrome |
+| desc          | Disease description | Adult respiratory distress syndrome, abbreviated as ARDS... |
+| cause         | Disease cause   | Purulent infection can cause bacterial toxins... |
+| prevent       | Prevention measures | High-risk patients should be closely monitored... |
+| cure_lasttime | Treatment duration | 2-4 months |
+| cured_prob    | Cure probability | 85% |
+| easy_get      | Susceptible population | No specific population |
 
-疾病实体属性类型（7类属性）：
+### Knowledge Graph Relationship Types (11 relationship types):
 
-| 属性类型      | 中文含义     | 举例                          |
-| ------------- | ------------ | ----------------------------- |
-| name          | 疾病名称     | 成人呼吸窘迫综合征            |
-| desc          | 疾病简介     | 成人呼吸窘迫综合征简称ARDS... |
-| cause         | 疾病病因     | 化脓性感染可使细菌毒素...     |
-| prevent       | 预防措施     | 对高危的患者应严密观察...     |
-| cure_lasttime | 治疗周期     | 2-4月                         |
-| cured_prob    | 治愈概率     | 85%                           |
-| easy_get      | 疾病易感人群 | 无特定的人群                  |
+| Relationship Type | Chinese Meaning | Count | Example |
+|-------------------|-----------------|-------|---------|
+| belongs_to        | Belongs to      | 8,843 | <Internal Medicine, belongs_to, Respiratory Medicine> |
+| common_drug       | Common drugs for disease | 14,647 | <ARDS, common_drug, Human albumin> |
+| do_eat            | Recommended foods for disease | 22,230 | <ARDS, do_eat, Lotus seeds> |
+| drugs_of          | Available drugs | 17,315 | <Human albumin, drugs_of, Laishi human albumin> |
+| need_check        | Required examinations | 39,418 | <Unilateral emphysema, need_check, Bronchography> |
+| no_eat            | Forbidden foods for disease | 22,239 | <ARDS, no_eat, Beer> |
+| recommand_drug    | Recommended drugs | 59,465 | <Mixed hemorrhoids, recommand_drug, Jingwanhong hemorrhoid cream> |
+| recommand_eat     | Recommended recipes | 40,221 | <ARDS, recommand_eat, Lily sugar porridge> |
+| has_symptom       | Disease symptoms | 54,710 | <ARDS, has_symptom, Dyspnea> |
+| acompany_with     | Comorbid diseases | 12,024 | <ARDS, acompany_with, Bacterial pneumonia> |
+| cure_way          | Treatment methods | 21,047 | <Acute pulmonary abscess, cure_way, Antibiotic treatment> |
+| **Total**         | **Total**        | **312,159** | **~310K relationship scale** |
 
-知识图谱关系类型（11类关系）：
-
-| 实体关系类型   | 中文含义     | 关系数量 | 举例                                     |
-| -------------- | ------------ | -------- | ---------------------------------------- |
-| belongs_to     | 属于         | 8,843    | <内科,属于, 呼吸内科>                    |
-| common_drug    | 疾病常用药品 | 14,647   | <成人呼吸窘迫综合征,常用, 人血白蛋白>    |
-| do_eat         | 疾病宜吃食物 | 22,230   | <成人呼吸窘迫综合征,宜吃,莲子>           |
-| drugs_of       | 药品在售药品 | 17,315   | <人血白蛋白,在售,莱士人蛋白人血白蛋白>   |
-| need_check     | 疾病所需检查 | 39,418   | <单侧肺气肿,所需检查,支气管造影>         |
-| no_eat         | 疾病忌吃食物 | 22,239   | <成人呼吸窘迫综合征,忌吃, 啤酒>          |
-| recommand_drug | 疾病推荐药品 | 59,465   | <混合痔,推荐用药,京万红痔疮膏>           |
-| recommand_eat  | 疾病推荐食谱 | 40,221   | <成人呼吸窘迫综合征,推荐食谱,百合糖粥>   |
-| has_symptom    | 疾病症状     | 54,710   | <成人呼吸窘迫综合征,疾病症状,呼吸困难>   |
-| acompany_with  | 疾病并发疾病 | 12,024   | <成人呼吸窘迫综合征,并发疾病,细菌性肺炎> |
-| cure_way       | 疾病治疗方法 | 21，047  | <急性肺脓肿,治疗方法,抗生素药物治疗>     |
-| Total          | 总计         | 312,159  | 约31万关系量级                           |
-
-创建的知识图谱如下图所示（某一检索结果）：
+The created knowledge graph is shown below (a sample retrieval result):
 
 <img src="img/neo4j.png" style="zoom:100%;" />
 
-## 实体识别(NER)
+## Named Entity Recognition (NER)
 
-什么是NER？
+What is NER?
 
 <img src="img/shitishibie.png" style="zoom:90%;" />
 
+### Dataset Creation
 
+You can run `ner_data.py`, which will create an NER dataset based on text from `data/medical_new_2.json` using rule matching techniques, saved in `data/ner_data_aug.txt`.
 
-
-
-**<u>数据集创建：</u>**
-
-你可以运行```ner_data.py```，这段代码会根据```data/medical_new_2.json```中的文字，结合规则匹配技术，创建一个NER数据集，保存在```data/ner_data_aug.txt```中。
-
-```
-python ner_data.py #可以不运行
+```bash
+python ner_data.py # Optional to run
 ```
 
-注1：我们已经上传了```ner_data_aug.txt```文件，您可以选择不运行```ner_data.py```。
+**Note 1**: We have already uploaded the `ner_data_aug.txt` file, so you can choose not to run `ner_data.py`.
 
-注2：我们采用BIO的策略对数据集进行标注，标注的结果如下图所示：
+**Note 2**: We use the BIO strategy for dataset annotation. The annotation results are shown below:
 
 <img src="img/nerdata.png" style="zoom:40%;" />
 
+### Model Training
 
+`ner_model.py` defines the NER model's network architecture and training approach. If you need to retrain a model, please download [chinese-roberta-wwm-ext](https://huggingface.co/hfl/chinese-roberta-wwm-ext) from Hugging Face and save it in the `model` folder, then run `ner_model.py`.
 
-**<u>模型训练：</u>**
-
-```ner_model.py``` 代码定义了NER模型的网络架构和训练方式。若您需要重新训练一个模型，请您在Huggingface上下载一个[chinese-roberta-wwm-ext](https://huggingface.co/hfl/chinese-roberta-wwm-ext)，并保存在```model```文件夹下，然后运行```ner_model.py``` 。
-
-```
-python ner_model.py #可以不运行
+```bash
+python ner_model.py # Optional to run
 ```
 
-注1：若您不想训练，可以[下载](https://pan.baidu.com/s/1kwiNDyNjO2E2uO0oYmK8SA?pwd=08or)我们训练好的模型，并保存在```model```文件夹下，无需运行训练代码。
+**Note 1**: If you don't want to train, you can [download](https://pan.baidu.com/s/1kwiNDyNjO2E2uO0oYmK8SA?pwd=08or) our pre-trained model and save it in the `model` folder without running the training code.
 
-注2：我们的NER模型采用了简单的BERT架构。
+**Note 2**: Our NER model uses a simple BERT architecture.
 
 ```python
 class Bert_Model(nn.Module):
@@ -186,72 +178,68 @@ class Bert_Model(nn.Module):
             return torch.argmax(pre, dim=-1).squeeze(0)
 ```
 
-注3:我们在训练过程运用了实体替换、实体掩码、实体拼接三种数据增强策略，改进了模型的性能。下面是在测试集上的F1 Score：
+**Note 3**: We applied three data augmentation strategies during training: entity replacement, entity masking, and entity concatenation, improving model performance. Below are the F1 scores on the test set:
 
-| 模型名称                | 未数据增强 | 数据增强 |
-| ----------------------- | ---------- | -------- |
-| bert-base-chinese       | 97.13%     | 97.42%   |
-| chinese-roberta-wwm-ext | 96.77%     | 97.40%   |
+| Model Name                | Without Data Augmentation | With Data Augmentation |
+|---------------------------|---------------------------|------------------------|
+| bert-base-chinese         | 97.13%                    | 97.42%                 |
+| chinese-roberta-wwm-ext   | 96.77%                    | 97.40%                 |
 
-注4：为了使模型的识别结果与知识图谱上的实体名相匹配，我们使用了TF-IDF实体对齐。
+**Note 4**: To match the model's recognition results with entity names in the knowledge graph, we used TF-IDF entity alignment.
 
-## 意图识别
+## Intent Recognition
 
-什么是意图识别？
+What is intent recognition?
 
 <img src="img/yitushibie.jpg" style="zoom:50%;" />
 
+We compared three intent recognition strategies (rule matching, trained models, prompt engineering):
 
+| Strategy        | Accuracy | Multi-intent Recognition | Manual Cost | Inference Speed | Resource Consumption |
+|-----------------|----------|------------------------|--------------|-------------|---------------------|
+| Rule Matching   | Low      | ✗                      | Low          | Fast        | Low                 |
+| Trained Models  | High     | ✗                      | High (data annotation) | Medium | Medium |
+| Prompt Engineering | High | ✓                      | Low          | Slow        | High                |
 
-我们对比了3种意图识别的策略(规则匹配、训练模型、提示工程)：
+After comprehensive consideration, we adopted the prompt engineering approach: We categorized intents into 16 types, designed prompts for these 16 intent categories, and used large models to analyze user queries for intent.
 
-| 策略     | 准确性 | 多意图识别 | 人工成本     | 推理速度 | 资源消耗 |
-| -------- | ------ | ---------- | ------------ | -------- | -------- |
-| 规则匹配 | 低     | x          | 低           | 快       | 低       |
-| 训练模型 | 高     | x          | 高(数据标注) | 中等     | 中等     |
-| 提示工程 | 高     | ✓          | 低           | 慢       | 高       |
+**Note 1**: We combined context learning with chain-of-thought techniques, achieving good results.
 
-综合考虑，我们采用了提示工程的手段：我们将意图分为16种，根据16类意图设计Prompt，让大模型对用户的查询进行意图分析。
+**Note 2**: This code is integrated into `webui.py`, so you don't need to perform any operations.
 
-注1：我们结合了上下文学习和思维链技术，最终取得了良好的结果。
+## Knowledge Graph Query
 
-注2：这部分代码整合到了```webui.py```中，您无需进行任何操作。
-
-## 知识图谱查询
-
-我们为每一个意图，设置了一个查询语句。
+We set up a query statement for each intent.
 
 <img src="img/yuju.jpg" style="zoom:30%;" />
 
-注：这部分代码整合到了```webui.py```中，您无需进行任何操作。
+**Note**: This code is integrated into `webui.py`, so you don't need to perform any operations.
 
-## 运行界面
+## Running the Interface
 
+We integrated intent recognition, knowledge base query, and chat interface into `webui.py`. On 2024.5.21, we added login and registration interfaces, setting up user and admin identities. You can start it using:
 
-
-我们将意图识别、知识库查询、对话界面都写在了```webui.py```中。2024.5.21，我们为界面增加了登陆、注册界面，设置了用户和管理员两种身份，您可以使用命令启动：
-
-```
+```bash
 streamlit run login.py
 ```
 
-登陆界面如下图所示：
+Login interface:
 
 <img src="img/login.png" style="zoom:100%;" />
 
-注册界面如下图所示：
+Registration interface:
 
 <img src="img/register.png" style="zoom:100%;" />
 
-管理员登陆界面如下图所示：
+Admin login interface:
 
 <img src="img/admin.png" style="zoom:70%;" />
 
-用户登陆界面如下图所示：
+User login interface:
 
 <img src="img/user.png" style="zoom:70%;" />
 
-几个运行例子：
+Some running examples:
 
 <img src="img/e1.png" style="zoom:40%;" />
 
@@ -267,23 +255,18 @@ streamlit run login.py
 
 <img src="img/e7.png" style="zoom:40%;" />
 
-## 未来工作
+## Future Work
 
-### NL2Cyhper
+### NL2Cypher
 
-我们将意图归为16类，已经涵盖了大部分意图，但是无法穷尽所有的意图，无法充分利用知识图谱中的数据。因此，我们尝试进行NL2Cyhper：抛弃实体识别和意图识别两个操作，直接根据用户的问题生成查询语句。
+We categorized intents into 16 types, which covers most intents but cannot exhaust all possibilities or fully utilize the knowledge graph data. Therefore, we are attempting NL2Cypher: abandoning entity recognition and intent recognition operations, directly generating query statements based on user questions.
 
 <img src="img/nl2cyhper.jpg" style="zoom:30%;" />
 
-问题：需要人工进行数据标注。
+**Issue**: Requires manual data annotation.
 
-## 联系方式
+## Contact
 
-如果您的复现遇到了困难，请随时联系！
+If you encounter difficulties during reproduction, please feel free to contact us!
 
-邮箱：zeromakers@outlook.com
-
-=======
-# RAGQnASystem
-Medical Q&amp;A System Based on RAG and Large Language Models
->>>>>>> 611e947faf680bab7d0465416916863d17b1e823
+Email: zeromakers@outlook.com
